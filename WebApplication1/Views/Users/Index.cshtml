@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebApplication1.Models.User>
+@{
+    ViewBag.Title = "A list of users";
+}
+
+<table class="table">
+    <tr><th>Check</th><th>Id</th><th>Email</th><th>Username</th><th>Registration date</th><th>Last log date</th><th>Block status</th></tr>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td><input id="isActive" name="isActive" type="checkbox" value="true" @(user.isActive ? "checked=\"checked\"" : "") /></td>
+            <td>@user.Id</td>
+            <td>@user.Email</td>
+            <td>@user.uname</td>
+            <td>@user.treg</td>
+            <td>@user.tlog</td>
+            <td>@user.isBlock</td>
+            <td>
+                <form asp-action="Delete" asp-route-id="@user.Id" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        Delete
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form asp-action="Lock" asp-route-id="@user.Id" method="post">
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        Block
+                    </button>
+                </form>
+            </td>
+            <td>
+                <form asp-action="UnLock" asp-route-id="@user.Id" method="post">
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        Unblock
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
